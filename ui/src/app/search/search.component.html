@@ -1,0 +1,30 @@
+<section>
+    <form (ngSubmit)="onSubmit()">
+
+      <div class="row g-2">
+
+        <div class="col-md-auto">
+          <input type="text" name="searchTerm" class="form-control" placeholder="検索語を入力…" [(ngModel)]="searchTerm" autofocus>
+        </div>
+
+        <div class="col-md-auto">
+          <button class="btn btn-dark" type="submit">検索</button>
+        </div>
+
+        <div class="col-md">
+          <p class="fs-4 text-end header-title">レオの日本語辞典</p>
+        </div>
+
+      </div>
+
+      <div class="row g-2">
+        <app-results
+          [kanjiResults]="this.kanjiResults"
+          [dictionaryResults]="this.dictionaryResults"
+          *ngIf="submitted">
+        </app-results>
+      </div>
+
+    </form>
+
+</section>

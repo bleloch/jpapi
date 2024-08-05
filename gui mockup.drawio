@@ -1,0 +1,31 @@
+<mxfile host="Electron" modified="2024-08-01T21:14:12.156Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.0 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="rnpdVBZ3Fr3UVLHuOqHT" version="24.4.0" type="device">
+  <diagram name="ページ1" id="anlRmiAoEx20NBmXlRlP">
+    <mxGraphModel dx="1207" dy="874" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4681" pageHeight="3300" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="_vbVX4Zga_Fb_EcUUwZ6-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="160" width="1920" height="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="_vbVX4Zga_Fb_EcUUwZ6-2" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="200" width="1840" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="_vbVX4Zga_Fb_EcUUwZ6-3" value="&lt;font color=&quot;#999999&quot; style=&quot;font-size: 21px;&quot;&gt;&amp;nbsp;&lt;span class=&quot;text&quot;&gt;検索語を入力…&lt;/span&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="820" y="220" width="440" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_vbVX4Zga_Fb_EcUUwZ6-4" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1D5E7;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="220" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_vbVX4Zga_Fb_EcUUwZ6-5" value="&lt;font style=&quot;font-size: 52px;&quot;&gt;レオの日本語辞典&amp;nbsp;&lt;/font&gt;" style="text;html=1;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=2;fontColor=#C3ABD0;" vertex="1" parent="1">
+          <mxGeometry x="2160" y="200" width="480" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="_vbVX4Zga_Fb_EcUUwZ6-6" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="320" width="1840" height="880" as="geometry" />
+        </mxCell>
+        <mxCell id="_vbVX4Zga_Fb_EcUUwZ6-7" value="&lt;span style=&quot;color: rgb(26, 26, 26); font-size: 27px;&quot;&gt;検索&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1290" y="220" width="70" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
