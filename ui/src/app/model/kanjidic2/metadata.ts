@@ -1,6 +1,7 @@
 import { Variant } from "./variant";
+import { Base } from "../base/base";
 
-export interface Metadata {
+export interface Metadata extends Base {
   readonly frequency: number;
   readonly schoolGrade: number;
   readonly jlptGrade: number;

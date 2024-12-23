@@ -12,6 +12,9 @@ spring:
   h2:
     console:
       enabled: true
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
 
 file:
   jmdict: src/main/resources/JMDict-formatted.xml

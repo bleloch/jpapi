@@ -37,3 +37,10 @@ ui/node_modules/
 *.db
 
 src/main/resources/*.xml
+
+**/.DS_Store
+
+*.old
+
+jlpt.md
+jmdict.puml

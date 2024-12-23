@@ -2,6 +2,8 @@ package ch.blelo.kanjiguide.model.dto.jmdict;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 
@@ -76,15 +78,17 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public record KanjiDto(
-        //@JacksonXmlProperty(localName = "keb")
+        long id,
+
+        @JacksonXmlProperty(localName = "keb")
         String element,
 
-        //@JacksonXmlProperty(localName = "ke_inf")
-        //@JacksonXmlElementWrapper(useWrapping = false)
+        @JacksonXmlProperty(localName = "ke_inf")
+        @JacksonXmlElementWrapper(useWrapping = false)
         Set<String> orthographyInformation,
 
-        //@JacksonXmlProperty(localName = "ke_pri")
-        //@JacksonXmlElementWrapper(useWrapping = false)
+        @JacksonXmlProperty(localName = "ke_pri")
+        @JacksonXmlElementWrapper(useWrapping = false)
         Set<String> priorityInformation
 ) {
         public static class KanjiDtoBuilder {

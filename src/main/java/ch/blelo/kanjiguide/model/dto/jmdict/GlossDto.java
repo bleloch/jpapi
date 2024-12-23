@@ -2,6 +2,8 @@ package ch.blelo.kanjiguide.model.dto.jmdict;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 
@@ -28,16 +30,18 @@ import lombok.extern.jackson.Jacksonized;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public record GlossDto(
-        //@JacksonXmlText
+        long id,
+
+        @JacksonXmlText
         String element,
 
-        //@JacksonXmlProperty(localName = "lang", isAttribute = true)
+        @JacksonXmlProperty(localName = "lang", isAttribute = true)
         String languageCode,
 
-        //@JacksonXmlProperty(localName = "g_gend", isAttribute = true)
+        @JacksonXmlProperty(localName = "g_gend", isAttribute = true)
         String gender,
 
-        //@JacksonXmlProperty(localName = "g_type", isAttribute = true)
+        @JacksonXmlProperty(localName = "g_type", isAttribute = true)
         String semanticProperty
 ) {
     public static class GlossDtoBuilder {

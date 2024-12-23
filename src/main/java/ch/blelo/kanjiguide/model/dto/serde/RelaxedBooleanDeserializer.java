@@ -1,4 +1,4 @@
-package ch.blelo.kanjiguide.model.jmdict.dto.serde;
+package ch.blelo.kanjiguide.model.dto.serde;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import java.io.IOException;
 
 /**
- * Taken from https://www.wissel.net/blog/2022/05/yes-no-maybe-booleans.html
+ * Taken from <a href="https://www.wissel.net/blog/2022/05/yes-no-maybe-booleans.html">...</a>
  */
 public class RelaxedBooleanDeserializer extends JsonDeserializer<Boolean> {
 

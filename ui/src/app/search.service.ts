@@ -11,9 +11,9 @@ export class SearchService {
 
   constructor(private http: HttpClient) {}
 
-  getResults(searchTerm: String): Observable<Entry[]> {
+  getWords(searchTerm: String): Observable<Entry[]> {
     return this.http.get<Entry[]>(
-      `http://localhost:8080/search/${searchTerm}`
+      `http://localhost:8080/search/word/${searchTerm}`
     );
   }
 
@@ -21,5 +21,13 @@ export class SearchService {
     return this.http.get<Character[]>(
       `http://localhost:8080/search/kanji/${searchTerm}`
     );
+  }
+
+  getWordById(id: number) {
+    return this.http.get<Entry>(`http://localhost:8080/search/word/${id}` );
+  }
+
+  getKanjiById(id: number) {
+    return this.http.get<Character>(`http://localhost:8080/search/kanji/${id}`);
   }
 }

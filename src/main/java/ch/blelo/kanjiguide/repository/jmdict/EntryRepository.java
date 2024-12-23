@@ -9,6 +9,8 @@ import java.util.List;
 @Repository
 public interface EntryRepository extends JpaRepository<Entry, Long> {
     List<Entry> findByKanjiElementIgnoreCase(String element);
+
     List<Entry> findByReadingsElementIgnoreCase(String element);
+
     List<Entry> findBySensesGlossesElementIgnoreCase(String element);
 }

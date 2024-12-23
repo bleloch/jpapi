@@ -1,9 +1,3 @@
-CREATE TABLE jmc_reading_pri
-(
-    id               BIGINT NOT NULL,
-    reading_priority VARCHAR(255)
-);
-
 CREATE TABLE jmd_alt_reading
 (
     id          BIGINT NOT NULL,
@@ -72,6 +66,13 @@ CREATE TABLE jmd_kanji_pri
     kanji_priority VARCHAR(255)
 );
 
+CREATE TABLE jmd_kd2_assoc_char
+(
+    jmd_entry_id     BIGINT NOT NULL,
+    kd2_character_id BIGINT NOT NULL,
+    CONSTRAINT pk_jmd_kd2_assoc_char PRIMARY KEY (jmd_entry_id, kd2_character_id)
+);
+
 CREATE TABLE jmd_limit_kanji
 (
     id               BIGINT NOT NULL,
@@ -120,6 +121,12 @@ CREATE TABLE jmd_reading_info
 (
     id           BIGINT NOT NULL,
     reading_info VARCHAR(255)
+);
+
+CREATE TABLE jmd_reading_pri
+(
+    id               BIGINT NOT NULL,
+    reading_priority VARCHAR(255)
 );
 
 CREATE TABLE jmd_sense
@@ -284,9 +291,6 @@ ALTER TABLE kd2_rmgroup
 ALTER TABLE kd2_variant
     ADD CONSTRAINT FK_KD2_VARIANT_ON_CHARACTER FOREIGN KEY (character_id) REFERENCES kd2_character (id);
 
-ALTER TABLE jmc_reading_pri
-    ADD CONSTRAINT fk_jmc_reading_pri_on_j_reading FOREIGN KEY (id) REFERENCES jmd_reading (id);
-
 ALTER TABLE jmd_alt_reading
     ADD CONSTRAINT fk_jmd_alt_reading_on_j_reading FOREIGN KEY (id) REFERENCES jmd_reading (id);
 
@@ -323,8 +327,17 @@ ALTER TABLE jmd_pos
 ALTER TABLE jmd_reading_info
     ADD CONSTRAINT fk_jmd_reading_info_on_j_reading FOREIGN KEY (id) REFERENCES jmd_reading (id);
 
+ALTER TABLE jmd_reading_pri
+    ADD CONSTRAINT fk_jmd_reading_pri_on_j_reading FOREIGN KEY (id) REFERENCES jmd_reading (id);
+
 ALTER TABLE jmd_sense_info
     ADD CONSTRAINT fk_jmd_sense_info_on_sense FOREIGN KEY (id) REFERENCES jmd_sense (id);
+
+ALTER TABLE jmd_kd2_assoc_char
+    ADD CONSTRAINT fk_jmdkd2asscha_on_character FOREIGN KEY (kd2_character_id) REFERENCES kd2_character (id);
+
+ALTER TABLE jmd_kd2_assoc_char
+    ADD CONSTRAINT fk_jmdkd2asscha_on_entry FOREIGN KEY (jmd_entry_id) REFERENCES jmd_entry (id);
 
 ALTER TABLE kd2_nanori
     ADD CONSTRAINT fk_kd2_nanori_on_character FOREIGN KEY (id) REFERENCES kd2_character (id);

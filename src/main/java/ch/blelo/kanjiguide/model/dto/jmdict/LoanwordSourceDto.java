@@ -1,9 +1,11 @@
 package ch.blelo.kanjiguide.model.dto.jmdict;
 
-import ch.blelo.kanjiguide.model.jmdict.dto.serde.RelaxedBooleanDeserializer;
+import ch.blelo.kanjiguide.model.dto.serde.RelaxedBooleanDeserializer;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 
@@ -33,17 +35,19 @@ import lombok.extern.jackson.Jacksonized;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public record LoanwordSourceDto(
-        //@JacksonXmlText
+        long id,
+
+        @JacksonXmlText
         String element,
 
-        //@JacksonXmlProperty(localName = "lang", isAttribute = true)
+        @JacksonXmlProperty(localName = "lang", isAttribute = true)
         String languageCode,
 
-        //@JacksonXmlProperty(localName = "ls_type", isAttribute = true)
+        @JacksonXmlProperty(localName = "ls_type", isAttribute = true)
         String semanticCoverage,
 
         @JsonDeserialize(using = RelaxedBooleanDeserializer.class)
-        //@JacksonXmlProperty(localName = "ls_wasei", isAttribute = true)
+        @JacksonXmlProperty(localName = "ls_wasei", isAttribute = true)
         boolean isConstructedFromSourceLanguageWord
 ) {
     public static class LoanwordSourceDtoBuilder {

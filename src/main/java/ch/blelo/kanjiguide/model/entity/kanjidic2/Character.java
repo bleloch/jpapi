@@ -1,6 +1,7 @@
 package ch.blelo.kanjiguide.model.entity.kanjidic2;
 
 import ch.blelo.kanjiguide.model.entity.base.Base;
+import ch.blelo.kanjiguide.model.entity.jmdict.Entry;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -49,6 +50,9 @@ public class Character extends Base {
 
     @OneToMany(mappedBy = "character")
     public Set<SemanticGroup> semanticGroups;
+
+    @ManyToMany(mappedBy = "linkedCharacters", fetch = FetchType.LAZY)
+    public Set<Entry> words;
 
     @ElementCollection
     @CollectionTable(name = "kd2_nanori", joinColumns = @JoinColumn(name = "id"))

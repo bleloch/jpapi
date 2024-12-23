@@ -1,4 +1,4 @@
-import { Base } from "./base/base";
+import { WithElementAndType } from "../base/withElementAndType";
 
-export interface Radical extends Base {
+export interface Radical extends WithElementAndType {
 }

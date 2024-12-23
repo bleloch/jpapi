@@ -5,6 +5,7 @@ import { NgComponentOutlet, NgIf } from "@angular/common";
 import { ResultsComponent } from "../results/results.component";
 import { Character } from "../model/kanjidic2/character";
 import { Entry } from '../model/jmdict/entry';
+import punycode from "punycode/punycode";
 
 @Component({
   selector: 'app-search',
@@ -33,7 +34,27 @@ export class SearchComponent {
 
   onSubmit() {
     this.submitted = true;
-    this.searchService.getResults(this.searchTerm).subscribe(results => this.dictionaryResults = results);
-    this.searchService.getKanji(this.searchTerm).subscribe(results => this.kanjiResults = results);
+    this.searchService.getWords(this.searchTerm).subscribe(results => this.dictionaryResults = results);
+
+    let locatedKanji = this.locateKanjiInSearchTerm(this.searchTerm);
+    for (let k of locatedKanji) {
+      this.searchService.getKanji(k).subscribe(results => this.kanjiResults.push(...results));
+    }
+    this.kanjiResults = [];
+  }
+
+  locateKanjiInSearchTerm(searchTerm: string) {
+    let results: Set<string> = new Set();
+
+    for (let char of searchTerm) {
+      let codepoints = punycode.ucs2.decode(char);
+      for (let codepoint of codepoints) {
+        if (codepoint >= 19968 && codepoint <= 40895) {
+          results.add(char);
+        }
+      }
+    }
+
+    return results;
   }
 }

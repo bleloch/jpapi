@@ -34,7 +34,7 @@ public class JReading {
     public Set<String> readingInformation;
 
     @ElementCollection
-    @CollectionTable(name = "jmc_reading_pri", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "jmd_reading_pri", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "reading_priority")
     public Set<String> priorityInformation;
 

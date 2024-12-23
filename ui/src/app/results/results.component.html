@@ -1,48 +1,78 @@
 <section>
 
-  <div class="row">
+  <div class="lower-border mb-3">
 
-    <!-- JMDict data -->
-    <div class="col-9">
-      <div *ngIf="dictionaryResults.length">
-        @for (dr of dictionaryResults; track dr) {
-          <div class="result m-5 m-5">
-            <div class="container">
-              <!-- debug -->
-              <div style="color: lightgray">{{ dr.entrySequence - 1000000 }}</div>
+    <div class="row">
 
-              <div *ngIf="dr.kanji">
-                <span class="fs-2">{{ dr.kanji[0].element }}</span><span class="fs-5"> ({{ dr.readings[0].element }}
-                )</span>
-                <p *ngIf="dr.kanji.length > 1">
-                  Alternative kanji: {{ getKanjiElements(dr).slice(1).join(', ') }}
-                </p>
-              </div>
-              <div *ngIf="!dr.kanji">
-                <span class="fs-2">{{ dr.readings[0].element }}</span>
-                <p *ngIf="dr.readings.length > 1">
-                  Alternative readings: {{ getReadingElements(dr).slice(1).join(', ') }}
-                </p>
-              </div>
+      <!-- JMDict data -->
+      <div class="col-8">
+        <div *ngIf="dictionaryResults.length">
+          @for (dr of dictionaryResults; track dr.id; let index = $index) {
+            <div class="result mb-4">
+              <div class="container">
+                <!-- debug -->
+                <div style="color: lightgray">{{ index + 1 }}</div>
 
-              <div>
-                <div *ngIf="dr.senses">
-                  <div class="accordion accordion-flush" id="translations" *ngIf="getTranslationsByLanguage(dr)">
-                    @for (t of getTranslationsByLanguage(dr); track t; let index = $index) {
-                      <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading{{ index }}">
-                          <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                  data-bs-target="#collapse{{ index }}" aria-expanded="true"
-                                  aria-controls="collapseOne">{{ getFlagForLanguage(t[0]) }}
-                          </button>
+                <div *ngIf="dr.kanji">
+                  <!--                <span class="fs-2"><ruby><rt>{{ dr.readings[0].element }}</rt>{{ dr.kanji[0].element }}</ruby></span>-->
+                  <div class="row g-2">
+                    <div class="col-md-auto">
+                      <p class="fs-2">
+                        {{ dr.kanji[0].element }}
+                      </p>
+                    </div>
+                    <div class="col-md-auto">
+                      <p class="fs-6 mt-3">
+                        {{ dr.readings[0].element }}
+                      </p>
+                    </div>
+                    <div class="col-md">
+                      <p class="text-end fs-6 mt-3 me-1">
+                        <a routerLink="/word/{{ dr.id }}">詳細</a>
+                      </p>
+                    </div>
+                  </div>
+                  <div *ngIf="dr.kanji.length > 1">
+                    <div>
+                      <b>異体字</b>
+                    </div>
+                    <p>{{ getKanjiElements(dr).slice(1).join(', ') }}</p>
+                  </div>
+                </div>
+                <div *ngIf="getReadingElements(dr).length > 1">
+                  <p>
+                    Also read: {{ getReadingElements(dr).slice(1).join(', ') }}
+                  </p>
+                </div>
+
+                <div *ngIf="!dr.kanji">
+                  <span class="fs-2">{{ dr.readings[0].element }}</span>
+                  <p *ngIf="dr.readings.length > 1">
+                    Also: {{ getReadingElements(dr).slice(1).join(', ') }}
+                  </p>
+                </div>
+
+                <div>
+                  <p class="fs-6 gram"><i>{{ getPosInformation(dr.senses) }}</i></p>
+                </div>
+
+                <div class="mb-3" *ngIf="dr.senses">
+                  <div ngbAccordion>
+                    @for (t of getTranslationsByLanguage(dr); track t[0]) {
+                      <div ngbAccordionItem>
+                        <h2 ngbAccordionHeader>
+                          <button ngbAccordionButton>{{ t[0] }}</button>
                         </h2>
-                        <div id="collapse{{ index }}" class="accordion-collapse collapse">
-                          <div class="accordion-body">
-                            <ol>
-                              @for (r of t[1]; track r) {
-                                <li>{{ r }}</li>
-                              }
-                            </ol>
+
+                        <div ngbAccordionCollapse>
+                          <div ngbAccordionBody>
+                            <ng-template>
+                              <ol>
+                                @for (r of t[1]; track r) {
+                                  <li>{{ r }}</li>
+                                }
+                              </ol>
+                            </ng-template>
                           </div>
                         </div>
                       </div>
@@ -51,401 +81,84 @@
                 </div>
               </div>
             </div>
-          </div>
-
-          <!--            @for (r of dr.kanji; track r) {-->
-            <!--              <p>{{ r.element }}</p>-->
-            <!--            }-->
-            <!--            @for (s of dr.senses; track s) {-->
-            <!--              @for (g of s.glosses; track g) {-->
-            <!--                <p>{{ g.element }} ({{ g.languageCode }})</p>-->
-            <!--              }-->
-            <!--            }-->
-        }
+          }
+        </div>
       </div>
-    </div>
 
-    <!-- Kanjidic2 data -->
-    <div class="col-3">
-      <div *ngIf="kanjiResults.length">
-        @for (kr of kanjiResults; track kanjiResults) {
-          <div class="result m-5 m-5">
-            <p class="fs-3">{{ kr.literal }}</p>
-          </div>
-        }
+      <!-- Kanjidic2 data -->
+      <div class="col-4">
+        <div *ngIf="kanjiResults.length">
+          @for (kr of kanjiResults; track kr.id; let index = $index) {
+            <div class="result mb-4">
+
+              <div class="container">
+                <!-- debug -->
+                <div style="color: lightgray">{{ index + 1 }}</div>
+
+                <div class="row">
+                  <div class="col-md">
+                    <p class="fs-2">{{ kr.literal }}</p>
+                  </div>
+                  <div class="col-md">
+                    <p class="text-end fs-6 mt-3 me-1">
+                      <a href="#">詳細</a>
+                    </p>
+                  </div>
+                </div>
+
+                @for (sg of kr.semantics.semanticGroups; track sg.id) {
+                  <div class="row mb-1">
+                    <div class="col-4">
+                      <p class="fs-6">
+                        <b>音</b>
+                      </p>
+                    </div>
+                    <div class="col-8">
+                      {{ getKanjiReadings(sg, "ja_on") }}
+                    </div>
+                  </div>
+                  <div class="row mb-1">
+                    <div class="col-4">
+                      <p class="fs-6">
+                        <b>訓</b>
+                      </p>
+                    </div>
+                    <div class="col-8">
+                      {{ getKanjiReadings(sg, "ja_kun") }}
+                    </div>
+                  </div>
+
+                  <div class="row mb-1">
+                    <div class="col-4">
+                      <p class="fs-6">
+                        <b>意味</b>
+                      </p>
+                    </div>
+                    <div class="col-8">
+                      {{ getKanjiMeanings(sg) }}
+                    </div>
+                  </div>
+                }
+
+                <div class="row mb-1">
+                  <div class="col-4">
+                    <p class="fs-6">
+                      <b>画数</b>
+                    </p>
+                  </div>
+                  <div class="col-8">
+                    {{ kr.metadata.strokeCount }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
       </div>
+
     </div>
 
   </div>
-  <!--    <div class="container-fluid padded" *ngIf="kanjiResults.length > 0">-->
-
-  <!--      <p class="fs-2 font-style:bold">Kanji results</p>-->
-  <!--      @for (kr of kanjiResults; track kanjiResults) {-->
-  <!--        <div class="bordered padded">-->
-  <!--          <p class="fs-3">{{ kr.literal }}</p>-->
-
-  <!--          <div class="bordered padded" *ngIf="kr.codepoints">-->
-  <!--            <p class="fs-4">Codepoints</p>-->
-
-  <!--            <ol>-->
-  <!--              @for (cp of kr.codepoints; track kanjiResults) {-->
-  <!--                <li *ngIf="cp.element">Element: {{ cp.element }}</li>-->
-  <!--                <li *ngIf="cp.type">Type: {{ cp.type }}</li>-->
-  <!--              }-->
-  <!--            </ol>-->
-  <!--          </div>-->
-
-  <!--          <div class="bordered padded" *ngIf="kr.dictionaryReferences">-->
-  <!--            <p class="fs-4">Dictionary references</p>-->
-
-  <!--            <ul>-->
-  <!--              @for (ref of kr.dictionaryReferences; track kanjiResults) {-->
-  <!--                <li>-->
-  <!--                  <p>Element: {{ ref.element }}</p>-->
-  <!--                  <p *ngIf="ref.type">Type: {{ ref.type }}</p>-->
-  <!--                  <p *ngIf="ref.morohashiVolume">Morohashi volume: {{ ref.morohashiVolume }}</p>-->
-  <!--                  <p *ngIf="ref.morohashiPage">Morohashi page: {{ ref.morohashiPage }}</p>-->
-  <!--                </li>-->
-  <!--              }-->
-  <!--            </ul>-->
-  <!--          </div>-->
-
-  <!--          <div class="bordered padded" *ngIf="kr.metadata">-->
-  <!--            <p class="fs-4">Metadata</p>-->
-
-  <!--            <p *ngIf="kr.metadata.frequency">Jōyō rank: {{ kr.metadata.frequency }}</p>-->
-  <!--            <p *ngIf="kr.metadata.schoolGrade">School grade: {{ kr.metadata.schoolGrade }}</p>-->
-  <!--            <p *ngIf="kr.metadata.jlptGrade">JLPT grade: {{ kr.metadata.jlptGrade }}</p>-->
-  <!--            <p *ngIf="kr.metadata.strokeCount">Stroke count: {{ kr.metadata.strokeCount }}</p>-->
-
-  <!--            <div class="bordered padded" *ngIf="kr.metadata.variants">-->
-  <!--              <p class="fs-5">Variants</p>-->
-
-  <!--              @for (v of kr.metadata.variants; track kanjiResults) {-->
-  <!--                <p *ngIf="v.element">Element: {{ v.element }}</p>-->
-  <!--                <p *ngIf="v.type">Type: {{ v.type }}</p>-->
-  <!--              }-->
-  <!--            </div>-->
-
-  <!--            <div class="bordered padded" *ngIf="kr.metadata.radicalNames">-->
-  <!--              <p class="fs-5">Radical names</p>-->
-
-  <!--              <ul>-->
-  <!--                @for (rn of kr.metadata.radicalNames; track kanjiResults) {-->
-  <!--                  <li>-->
-  <!--                    {{ rn }}-->
-  <!--                  </li>-->
-  <!--                }-->
-  <!--              </ul>-->
-  <!--            </div>-->
-  <!--          </div>-->
-
-  <!--          <div class="bordered padded" *ngIf="kr.queryCodes">-->
-  <!--            <p class="fs-4">Query codes</p>-->
-
-  <!--            <ul>-->
-  <!--              @for (qc of kr.queryCodes; track kanjiResults) {-->
-  <!--                <li>-->
-  <!--                  <p>Element: {{ qc.element }}</p>-->
-  <!--                  <p *ngIf="qc.type">Type: {{ qc.type }}</p>-->
-  <!--                  <p *ngIf="qc.skipMisclassification">Misclassified in SKIP: {{ qc.skipMisclassification }}</p>-->
-  <!--                </li>-->
-  <!--              }-->
-  <!--            </ul>-->
-  <!--          </div>-->
-
-  <!--          <div class="bordered padded" *ngIf="kr.radicals">-->
-  <!--            <p class="fs-4">Radical information</p>-->
-
-  <!--            <ul>-->
-  <!--              @for (rad of kr.radicals; track kanjiResults) {-->
-  <!--                <li>-->
-  <!--                  <p>Element: {{ rad.element }}</p>-->
-  <!--                  <p *ngIf="rad.type">Type: {{ rad.type }}</p>-->
-  <!--                </li>-->
-  <!--              }-->
-  <!--            </ul>-->
-  <!--          </div>-->
-
-  <!--          <div class="bordered padded" *ngIf="kr.semantics">-->
-  <!--            <p class="fs-4">Semantic information</p>-->
-
-  <!--            <div *ngIf="kr.semantics.semanticGroups">-->
-  <!--              <div>-->
-  <!--                @for (sg of kr.semantics.semanticGroups; track kanjiResults) {-->
-  <!--                  <div class="bordered padded" *ngIf="sg.meanings">-->
-  <!--                    <p class="fs-5">Meanings</p>-->
-  <!--                    @for (mean of sg.meanings; track kanjiResults) {-->
-  <!--                      <div class="bordered padded">-->
-  <!--                        <p>{{ mean.element }}</p>-->
-  <!--                        <p>Language: {{ mean.languageCode }}</p>-->
-  <!--                      </div>-->
-  <!--                    }-->
-  <!--                  </div>-->
-
-  <!--                  <div class="bordered padded" *ngIf="sg.readings">-->
-  <!--                    <p class="fs-5">Readings</p>-->
-  <!--                    @for (read of sg.readings; track kanjiResults) {-->
-  <!--                      <div class="bordered padded">-->
-  <!--                        <p>Reading: {{ read.element }}</p>-->
-  <!--                        <p>Type: {{ read.type }}</p>-->
-  <!--                        <p *ngIf="read.onType">OnType?: {{ read.onType }}</p>-->
-  <!--                        <p *ngIf="read.rStatus">RStatus?: {{ read.rStatus }}</p>-->
-  <!--                      </div>-->
-  <!--                    }-->
-  <!--                  </div>-->
-  <!--                }-->
-  <!--              </div>-->
-
-  <!--              <div class="bordered padded" *ngIf="kr.semantics.nanori">-->
-  <!--                <p class="fs-5">Nanori</p>-->
-  <!--                <ul>-->
-  <!--                  @for (nan of kr.semantics.nanori; track kanjiResults) {-->
-  <!--                    <div class="bordered padded">-->
-  <!--                      <li>-->
-  <!--                        {{ nan }}-->
-  <!--                      </li>-->
-  <!--                    </div>-->
-  <!--                  }-->
-  <!--                </ul>-->
-  <!--              </div>-->
-  <!--            </div>-->
-  <!--          </div>-->
-  <!--        </div>-->
-  <!--      }-->
-  <!--    </div>-->
-
-  <!--    &lt;!&ndash; JMDict data &ndash;&gt;-->
-  <!--    <div class="container-fluid padded" *ngIf="dictionaryResults.length > 0">-->
-  <!--      <p class="fs-2 font-style:bold">Dictionary results</p>-->
-  <!--      @for (dr of dictionaryResults; track dictionaryResults) {-->
-  <!--        <div class="bordered padded">-->
-  <!--          @for (k of dr.kanji; track dictionaryResults) {-->
-  <!--            <div class="bordered padded">-->
-  <!--              <p class="fs-3">Element: {{ k.element }}</p>-->
-
-  <!--              <div class="bordered padded" *ngIf="k.orthographyInformation">-->
-  <!--                <p>Orthography</p>-->
-  <!--                <ul>-->
-  <!--                  @for (oi of k.orthographyInformation; track dictionaryResults) {-->
-  <!--                    <div class="bordered padded">-->
-  <!--                      <li>-->
-  <!--                        {{ oi }}-->
-  <!--                      </li>-->
-  <!--                    </div>-->
-  <!--                  }-->
-  <!--                </ul>-->
-  <!--              </div>-->
-
-  <!--              <div class="bordered padded" *ngIf="k.priorityInformation">-->
-  <!--                <p>Priority</p>-->
-  <!--                <ul>-->
-  <!--                  @for (pi of k.priorityInformation; track dictionaryResults) {-->
-  <!--                    <div class="bordered padded">-->
-  <!--                      <li>-->
-  <!--                        {{ pi }}-->
-  <!--                      </li>-->
-  <!--                    </div>-->
-  <!--                  }-->
-  <!--                </ul>-->
-  <!--              </div>-->
-  <!--            </div>-->
-  <!--          }-->
-
-  <!--          @for (r of dr.readings; track dictionaryResults) {-->
-  <!--            <div class="bordered padded">-->
-  <!--              <p class="fs-3">Element: {{ r.element }}</p>-->
-
-  <!--              <div class="bordered padded" *ngIf="r.readingInformation">-->
-  <!--                <p class="fs-4">Reading information</p>-->
-  <!--                <ul>-->
-  <!--                  @for (ri of r.readingInformation; track dictionaryResults) {-->
-  <!--                    <div class="bordered padded">-->
-  <!--                      <li>-->
-  <!--                        {{ ri }}-->
-  <!--                      </li>-->
-  <!--                    </div>-->
-  <!--                  }-->
-  <!--                </ul>-->
-  <!--              </div>-->
-
-  <!--              <div class="bordered padded" *ngIf="r.priorityInformation">-->
-  <!--                <p class="fs-4">Priority</p>-->
-  <!--                <ul>-->
-  <!--                  @for (pi of r.priorityInformation; track dictionaryResults) {-->
-  <!--                    <div class="bordered padded">-->
-  <!--                      <li>-->
-  <!--                        {{ pi }}-->
-  <!--                      </li>-->
-  <!--                    </div>-->
-  <!--                  }-->
-  <!--                </ul>-->
-  <!--              </div>-->
-
-  <!--              <div class="bordered padded" *ngIf="r.alternativeReadings">-->
-  <!--                <p class="fs-4">Alternative readings</p>-->
-  <!--                <ul>-->
-  <!--                  @for (ar of r.alternativeReadings; track dictionaryResults) {-->
-  <!--                    <div class="bordered padded">-->
-  <!--                      <li>-->
-  <!--                        {{ ar }}-->
-  <!--                      </li>-->
-  <!--                    </div>-->
-  <!--                  }-->
-  <!--                </ul>-->
-  <!--              </div>-->
-
-  <!--            </div>-->
-  <!--          }-->
-
-  <!--          @for (s of dr.senses; track dictionaryResults) {-->
-  <!--            <div class="bordered padded">-->
-  <!--              <div class="bordered padded" *ngIf="s.limitedToKanji">-->
-  <!--                <p class="fs-4">Limited to kanji</p>-->
-  <!--                <ul>-->
-  <!--                  @for (ltk of s.limitedToKanji; track dictionaryResults) {-->
-  <!--                    <div class="bordered padded">-->
-  <!--                      <li>-->
-  <!--                        {{ ltk }}-->
-  <!--                      </li>-->
-  <!--                    </div>-->
-  <!--                  }-->
-  <!--                </ul>-->
-  <!--              </div>-->
-
-  <!--              <div class="bordered padded" *ngIf="s.limitedToReadings">-->
-  <!--                <p class="fs-4">Limited to readings</p>-->
-  <!--                <ul>-->
-  <!--                  @for (ltr of s.limitedToReadings; track dictionaryResults) {-->
-  <!--                    <div class="bordered padded">-->
-  <!--                      <li>-->
-  <!--                        {{ ltr }}-->
-  <!--                      </li>-->
-  <!--                    </div>-->
-  <!--                  }-->
-  <!--                </ul>-->
-  <!--              </div>-->
-
-  <!--              <div class="bordered padded" *ngIf="s.partOfSpeech">-->
-  <!--                <p class="fs-4">Part of speech</p>-->
-  <!--                <ul>-->
-  <!--                  @for (pos of s.partOfSpeech; track dictionaryResults) {-->
-  <!--                    <div class="bordered padded">-->
-  <!--                      <li>-->
-  <!--                        {{ pos }}-->
-  <!--                      </li>-->
-  <!--                    </div>-->
-  <!--                  }-->
-  <!--                </ul>-->
-  <!--              </div>-->
-
-  <!--              <div class="bordered padded" *ngIf="s.crossReferences">-->
-  <!--                <p class="fs-4">Cross references</p>-->
-  <!--                <ul>-->
-  <!--                  @for (cr of s.crossReferences; track dictionaryResults) {-->
-  <!--                    <div class="bordered padded">-->
-  <!--                      <li>-->
-  <!--                        {{ cr }}-->
-  <!--                      </li>-->
-  <!--                    </div>-->
-  <!--                  }-->
-  <!--                </ul>-->
-  <!--              </div>-->
-
-  <!--              <div class="bordered padded" *ngIf="s.antonyms">-->
-  <!--                <p class="fs-4">Antonyms</p>-->
-  <!--                <ul>-->
-  <!--                  @for (ant of s.antonyms; track dictionaryResults) {-->
-  <!--                    <div class="bordered padded">-->
-  <!--                      <li>-->
-  <!--                        {{ ant }}-->
-  <!--                      </li>-->
-  <!--                    </div>-->
-  <!--                  }-->
-  <!--                </ul>-->
-  <!--              </div>-->
-
-  <!--              <div class="bordered padded" *ngIf="s.fieldsOfApplication">-->
-  <!--                <p class="fs-4">Fields of application</p>-->
-  <!--                <ul>-->
-  <!--                  @for (foa of s.fieldsOfApplication; track dictionaryResults) {-->
-  <!--                    <div class="bordered padded">-->
-  <!--                      <li>-->
-  <!--                        {{ foa }}-->
-  <!--                      </li>-->
-  <!--                    </div>-->
-  <!--                  }-->
-  <!--                </ul>-->
-  <!--              </div>-->
-
-  <!--              <div class="bordered padded" *ngIf="s.miscellaneousInformation">-->
-  <!--                <p class="fs-4">Miscellaneous information</p>-->
-  <!--                <ul>-->
-  <!--                  @for (mi of s.miscellaneousInformation; track dictionaryResults) {-->
-  <!--                    <div class="bordered padded">-->
-  <!--                      <li>-->
-  <!--                        {{ mi }}-->
-  <!--                      </li>-->
-  <!--                    </div>-->
-  <!--                  }-->
-  <!--                </ul>-->
-  <!--              </div>-->
-
-  <!--              <div class="bordered padded" *ngIf="s.senseInformation">-->
-  <!--                <p class="fs-4">Sense information</p>-->
-  <!--                <ul>-->
-  <!--                  @for (si of s.senseInformation; track dictionaryResults) {-->
-  <!--                    <div class="bordered padded">-->
-  <!--                      <li>-->
-  <!--                        {{ si }}-->
-  <!--                      </li>-->
-  <!--                    </div>-->
-  <!--                  }-->
-  <!--                </ul>-->
-  <!--              </div>-->
-
-  <!--              <div class="bordered padded" *ngIf="s.loanwordSources">-->
-  <!--                <p class="fs-4">Loanword sources</p>-->
-  <!--                @for (ls of s.loanwordSources; track dictionaryResults) {-->
-  <!--                  <div class="bordered padded">-->
-  <!--                    <p>Element: {{ ls.element }}</p>-->
-  <!--                    <p *ngIf="ls.languageCode">Language: {{ ls.languageCode }}</p>-->
-  <!--                    <p *ngIf="ls.semanticCoverage">Semantic coverage: {{ ls.semanticCoverage }}</p>-->
-  <!--                    <p *ngIf="ls.isConstructedFromSourceLanguageWord"> {{ ls.isConstructedFromSourceLanguageWord }} </p>-->
-  <!--                  </div>-->
-  <!--                }-->
-  <!--              </div>-->
-
-  <!--              <div class="bordered padded" *ngIf="s.dialects">-->
-  <!--                <p class="fs-4">Dialects</p>-->
-  <!--                <ul>-->
-  <!--                  @for (d of s.dialects; track dictionaryResults) {-->
-  <!--                    <div class="bordered padded">-->
-  <!--                      <li>-->
-  <!--                        {{ d }}-->
-  <!--                      </li>-->
-  <!--                    </div>-->
-  <!--                  }-->
-  <!--                </ul>-->
-  <!--              </div>-->
-
-  <!--              <div class="bordered padded" *ngIf="s.glosses">-->
-  <!--                <p class="fs-4">Glosses</p>-->
-  <!--                @for (g of s.glosses; track dictionaryResults) {-->
-  <!--                  <div>-->
-  <!--                    <p>Element: {{ g.element }}</p>-->
-  <!--                    <p *ngIf="g.languageCode">Language: {{ g.languageCode }}</p>-->
-  <!--                    <p *ngIf="g.gender">Gender: {{ g.gender }}</p>-->
-  <!--                    <p *ngIf="g.semanticProperty">Semantic relevance: {{ g.semanticProperty }}</p>-->
-  <!--                  </div>-->
-  <!--                }-->
-  <!--              </div>-->
-  <!--            </div>-->
-  <!--          }-->
-  <!--        </div>-->
-  <!--      }-->
-  <!--    </div>-->
-
-  <!--  </div>-->
 
 </section>
+<router-outlet></router-outlet>

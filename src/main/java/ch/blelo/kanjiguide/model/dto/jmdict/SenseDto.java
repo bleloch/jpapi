@@ -2,6 +2,8 @@ package ch.blelo.kanjiguide.model.dto.jmdict;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 
@@ -52,48 +54,50 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public record SenseDto(
-        //@JacksonXmlProperty(localName = "stagk")
-        //@JacksonXmlElementWrapper(useWrapping = false)
+        long id,
+
+        @JacksonXmlProperty(localName = "stagk")
+        @JacksonXmlElementWrapper(useWrapping = false)
         Set<String> limitedToKanji,
 
-        //@JacksonXmlProperty(localName = "stagr")
-        //@JacksonXmlElementWrapper(useWrapping = false)
+        @JacksonXmlProperty(localName = "stagr")
+        @JacksonXmlElementWrapper(useWrapping = false)
         Set<String> limitedToReadings,
 
-        //@JacksonXmlProperty(localName = "pos")
-        //@JacksonXmlElementWrapper(useWrapping = false)
+        @JacksonXmlProperty(localName = "pos")
+        @JacksonXmlElementWrapper(useWrapping = false)
         Set<String> partOfSpeech,
 
-        //@JacksonXmlProperty(localName = "xref")
-        //@JacksonXmlElementWrapper(useWrapping = false)
+        @JacksonXmlProperty(localName = "xref")
+        @JacksonXmlElementWrapper(useWrapping = false)
         Set<String> crossReferences,
 
-        //@JacksonXmlProperty(localName = "ant")
-        //@JacksonXmlElementWrapper(useWrapping = false)
+        @JacksonXmlProperty(localName = "ant")
+        @JacksonXmlElementWrapper(useWrapping = false)
         Set<String> antonyms,
 
-        //@JacksonXmlProperty(localName = "field")
-        //@JacksonXmlElementWrapper(useWrapping = false)
+        @JacksonXmlProperty(localName = "field")
+        @JacksonXmlElementWrapper(useWrapping = false)
         Set<String> fieldsOfApplication,
 
-        //@JacksonXmlProperty(localName = "misc")
-        //@JacksonXmlElementWrapper(useWrapping = false)
+        @JacksonXmlProperty(localName = "misc")
+        @JacksonXmlElementWrapper(useWrapping = false)
         Set<String> miscellaneousInformation,
 
-        //@JacksonXmlProperty(localName = "s_inf")
-        //@JacksonXmlElementWrapper(useWrapping = false)
+        @JacksonXmlProperty(localName = "s_inf")
+        @JacksonXmlElementWrapper(useWrapping = false)
         Set<String> senseInformation,
 
-        //@JacksonXmlProperty(localName = "lsource")
-        //@JacksonXmlElementWrapper(useWrapping = false)
+        @JacksonXmlProperty(localName = "lsource")
+        @JacksonXmlElementWrapper(useWrapping = false)
         Set<LoanwordSourceDto> loanwordSources,
 
-        //@JacksonXmlProperty(localName = "dial")
-        //@JacksonXmlElementWrapper(useWrapping = false)
+        @JacksonXmlProperty(localName = "dial")
+        @JacksonXmlElementWrapper(useWrapping = false)
         Set<String> dialects,
 
-        //@JacksonXmlProperty(localName = "gloss")
-        //@JacksonXmlElementWrapper(useWrapping = false)
+        @JacksonXmlProperty(localName = "gloss")
+        @JacksonXmlElementWrapper(useWrapping = false)
         Set<GlossDto> glosses
 ) {
         public static class SenseDtoBuilder {

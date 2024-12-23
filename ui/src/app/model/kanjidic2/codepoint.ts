@@ -1,4 +1,4 @@
-import { Base } from "./base/base";
+import { WithElementAndType } from "../base/withElementAndType";
 
-export interface Codepoint extends Base {
+export interface Codepoint extends WithElementAndType {
 }

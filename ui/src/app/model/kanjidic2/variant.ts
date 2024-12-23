@@ -1,4 +1,4 @@
-import { Base } from "./base/base";
+import { WithElementAndType } from "../base/withElementAndType";
 
-export interface Variant extends Base {
+export interface Variant extends WithElementAndType {
 }
