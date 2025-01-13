@@ -12,10 +12,10 @@
     </parent>
 
     <groupId>ch.blelo</groupId>
-    <artifactId>kanjiguide</artifactId>
+    <artifactId>jpapi</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>kanjiguide</name>
+    <name>jpapi</name>
     <description>backend API for querying various sources of Japanese language data</description>
 
     <properties>

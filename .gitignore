@@ -19,24 +19,16 @@ target/
 *.iml
 *.ipr
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
-.vscode/
-
 ui/node_modules/
+ui/.angular/
+ui/.vscode/
 
 *.db
 
+## JMDict, JMNEDict, Kanjidic2 etc
 src/main/resources/*.xml
+## Furigana files
+src/main/resources/*Furigana.json
 
 **/.DS_Store
 
@@ -44,3 +36,5 @@ src/main/resources/*.xml
 
 jlpt.md
 jmdict.puml
+
+*.log
