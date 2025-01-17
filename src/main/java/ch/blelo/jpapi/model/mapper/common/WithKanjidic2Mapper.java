@@ -11,7 +11,7 @@ import java.util.Set;
  * <p>Manually overrides generated MapStruct mappings that would otherwise cause cycles in the entity relationship.</p>
  * <p>Use when a data source links some context (e.g. a kanji representation) to kanji sourced by Kanjidic2 data.</p>
  */
-public abstract class WithLinkedKanjidic2Character {
+public abstract class WithKanjidic2Mapper {
     protected Kanjidic2CharacterDto characterToCharacterDto(Kanjidic2Character character) {
         if ( character == null ) {
             return null;

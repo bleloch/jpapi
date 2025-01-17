@@ -21,7 +21,7 @@ public class JMDictSerializer extends StdSerializer<JMDictEntryDto> {
     public void serialize(JMDictEntryDto value, JsonGenerator gen, SerializerProvider provider) throws IOException {
         gen.writeStartObject();
 
-        gen.writeNumberField("id", value.id());
+//        gen.writeNumberField("id", value.id());
 
         gen.writeNumberField("entrySequence", value.entrySequence());
 

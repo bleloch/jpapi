@@ -1,6 +1,6 @@
 package ch.blelo.jpapi.model.entity.kanjidic2;
 
-import ch.blelo.jpapi.model.entity.common.WithTypeAndElementBase;
+import ch.blelo.jpapi.model.entity.common.WithTypeAndElement;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -9,7 +9,7 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "kd2_dic_ref")
 @NoArgsConstructor
 @SuperBuilder
-public class Kanjidic2DictionaryReference extends WithTypeAndElementBase {
+public class Kanjidic2DictionaryReference extends WithTypeAndElement {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "character_id")
     public Kanjidic2Character character;

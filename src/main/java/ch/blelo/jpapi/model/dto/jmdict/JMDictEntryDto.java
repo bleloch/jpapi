@@ -4,6 +4,7 @@ import ch.blelo.jpapi.model.dto.common.KanjiDto;
 import ch.blelo.jpapi.model.dto.common.ReadingDto;
 import ch.blelo.jpapi.model.dto.kanjidic2.Kanjidic2CharacterDto;
 import ch.blelo.jpapi.model.dto.serde.JMDictSerializer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -32,6 +33,7 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonSerialize(using = JMDictSerializer.class)
 public record JMDictEntryDto(
+        @JsonIgnore
         long id,
 
         @JacksonXmlProperty(localName = "ent_seq")

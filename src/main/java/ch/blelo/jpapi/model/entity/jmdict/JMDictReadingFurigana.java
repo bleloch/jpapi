@@ -7,7 +7,7 @@ import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "jmd_reading_fg")
-@NoArgsConstructor
 @SuperBuilder
+@NoArgsConstructor
 public class JMDictReadingFurigana extends WithFurigana<JMDictReading> {
 }

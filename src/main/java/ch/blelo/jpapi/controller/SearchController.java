@@ -53,7 +53,7 @@ public class SearchController {
     ) {
         var results = searchService.searchName(searchTerm);
 
-        log.info("Returning {} for name query {}", results.size(), searchTerm);
+        log.info("Returning {} results for name query {}", results.size(), searchTerm);
 
         return ResponseEntity.ok(results);
     }

@@ -80,7 +80,8 @@ public class DataIngestionRunner implements CommandLineRunner {
                     .builder()
                     .build();
 
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private static final ObjectMapper OBJECT_MAPPER =
+            new ObjectMapper();
 
     @SneakyThrows
     private static XMLStreamReader createXMLReader(String filePath) {
@@ -256,22 +257,6 @@ public class DataIngestionRunner implements CommandLineRunner {
                                 .orthographyInformation(kanji.orthographyInformation())
                                 .priorityInformation(kanji.priorityInformation())
                                 .build()));
-
-                // TODO: map each KanjiDto#element to an entry in the furigana JSON
-                // 1. Obtain kanji.element()
-                // 2. Find matching word in furigana file
-                // 3. For each kanji in word, assign an index to the kanji for where it appears in the word, e.g.
-                //
-                //      小腹が立つ - 0. 小, 1. 腹, 3. 立
-                //      Kana are ignored for obvious reasons.
-                //
-                // 4. Store in a separate table foreign keyed to the Kanji table like so:
-                //
-                // | id | keb_id | kanji | position |
-                // |----|--------|-------|----------|
-                // | 1  | 1      | 小     | 0        |
-                // | 2  | 1      | 腹     | 1        |
-                // | 3  | 1      | 立     | 3        |
             }
 
             entry.readings().forEach(reading -> {
@@ -290,13 +275,13 @@ public class DataIngestionRunner implements CommandLineRunner {
                         if (furiganaMatch != null) {
                             for (RubyDto ruby : furiganaMatch) {
                                 jmdictRepository.readingFuriganaRepository().save(JMDictReadingFurigana.builder()
-                                        .readingId(readingEntity)
-                                        .character(ruby.ruby())
-                                        .reading(ruby.rt())
+                                        .reading(readingEntity)
+                                        .element(ruby.ruby())
+                                        .kana(ruby.rt())
                                         .position(count)
                                         .build()
                                 );
-                                count++;
+                                count += ruby.ruby().length();
                             }
                         } else {
                             log.warn("No furigana for JMDict entry {} ({})", kanji.element(), reading.element());
@@ -385,13 +370,13 @@ public class DataIngestionRunner implements CommandLineRunner {
                         if (furigana != null) {
                             for (RubyDto ruby : furigana) {
                                 jmnedictRepository.readingFuriganaRepository().save(JMNEDictReadingFurigana.builder()
-                                        .readingId(readingEntity)
-                                        .character(ruby.ruby())
-                                        .reading(ruby.rt())
+                                        .reading(readingEntity)
+                                        .element(ruby.ruby())
+                                        .kana(ruby.rt())
                                         .position(count)
                                         .build()
                                 );
-                                count++;
+                                count += ruby.ruby().length();
                             }
                         } else {
                             log.warn("No furigana for JMNEDict entry {} ({})", kanji.element(), reading.element());
@@ -457,10 +442,10 @@ public class DataIngestionRunner implements CommandLineRunner {
      * @return all unique kanji matches in the set
      */
     private static Set<Character> locateKanjiInWord(Set<String> words) {
-        Set<Character> foundKanji = new TreeSet<>();
+        Set<Character> foundKanji = new TreeSet<>(); // to preserve order
 
         words.forEach(word -> {
-            for (char c : word.toCharArray()) {
+            for (char c : word.toCharArray()) { // bleh, if only there was a CharStream
                 if (matchKanji(c)) {
                     foundKanji.add(c);
                 }

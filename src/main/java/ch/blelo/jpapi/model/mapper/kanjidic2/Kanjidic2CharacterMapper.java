@@ -2,10 +2,7 @@ package ch.blelo.jpapi.model.mapper.kanjidic2;
 
 import ch.blelo.jpapi.model.dto.common.KanjiDto;
 import ch.blelo.jpapi.model.dto.common.ReadingDto;
-import ch.blelo.jpapi.model.dto.jmdict.JMDictEntryDto;
-import ch.blelo.jpapi.model.dto.jmdict.JMDictGlossDto;
-import ch.blelo.jpapi.model.dto.jmdict.JMDictLoanwordSourceDto;
-import ch.blelo.jpapi.model.dto.jmdict.JMDictSenseDto;
+import ch.blelo.jpapi.model.dto.jmdict.*;
 import ch.blelo.jpapi.model.dto.kanjidic2.Kanjidic2CharacterDto;
 import ch.blelo.jpapi.model.entity.jmdict.*;
 import ch.blelo.jpapi.model.entity.kanjidic2.Kanjidic2Character;

@@ -1,25 +1,30 @@
-package ch.blelo.jpapi.model.dto.kanjidic2;
+package ch.blelo.jpapi.model.dto.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 
+/**
+ *
+ * @param id
+ * @param element
+ * @param kana
+ * @param position
+ */
 @Jacksonized
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public record Kanjidic2VariantDto(
+public record FuriganaDto(
         @JsonIgnore
         long id,
 
-        @JacksonXmlText
         String element,
 
-        @JacksonXmlProperty(localName = "var_type", isAttribute = true)
-        String type
+        String kana,
+
+        Integer position
 ) {
 }

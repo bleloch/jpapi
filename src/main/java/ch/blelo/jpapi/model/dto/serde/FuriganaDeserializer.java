@@ -15,8 +15,7 @@ import java.util.Map;
 
 public class FuriganaDeserializer extends JsonDeserializer<Map<String, List<RubyDto>>> {
     @Override
-    public Map<String, List<RubyDto>> deserialize(JsonParser jp, DeserializationContext ctxt)
-            throws IOException {
+    public Map<String, List<RubyDto>> deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
         Map<String, List<RubyDto>> result = new HashMap<>();
 
         ArrayNode arrayNode = jp.getCodec().readTree(jp);

@@ -1,5 +1,6 @@
 package ch.blelo.jpapi.model.dto.kanjidic2;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
@@ -316,6 +317,7 @@ import lombok.extern.jackson.Jacksonized;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public record Kanjidic2DictionaryReferenceDto(
+        @JsonIgnore
         long id,
 
         @JacksonXmlText

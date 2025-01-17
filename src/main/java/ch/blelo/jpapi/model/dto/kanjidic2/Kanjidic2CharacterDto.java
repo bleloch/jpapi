@@ -1,7 +1,9 @@
 package ch.blelo.jpapi.model.dto.kanjidic2;
 
 import ch.blelo.jpapi.model.dto.jmdict.JMDictEntryDto;
+import ch.blelo.jpapi.model.dto.jmnedict.JMNEDictEntryDto;
 import ch.blelo.jpapi.model.dto.serde.Kanjidic2Serializer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -45,6 +47,7 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonSerialize(using = Kanjidic2Serializer.class)
 public record Kanjidic2CharacterDto(
+        @JsonIgnore
         long id,
 
         @JacksonXmlProperty(localName = "literal")
@@ -68,6 +71,8 @@ public record Kanjidic2CharacterDto(
         @JacksonXmlProperty(localName = "reading_meaning")
         Kanjidic2SemanticsDto semantics,
 
-        Set<JMDictEntryDto> words
+        Set<JMDictEntryDto> words,
+
+        Set<JMNEDictEntryDto> names
 ) {
 }

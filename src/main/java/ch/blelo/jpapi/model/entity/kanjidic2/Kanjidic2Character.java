@@ -2,6 +2,7 @@ package ch.blelo.jpapi.model.entity.kanjidic2;
 
 import ch.blelo.jpapi.model.entity.common.Base;
 import ch.blelo.jpapi.model.entity.jmdict.JMDictEntry;
+import ch.blelo.jpapi.model.entity.jmnedict.JMNEDictEntry;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -58,4 +59,7 @@ public class Kanjidic2Character extends Base {
 
     @ManyToMany(mappedBy = "linkedCharacters", fetch = FetchType.LAZY)
     public Set<JMDictEntry> words;
+
+    @ManyToMany(mappedBy = "linkedCharacters", fetch = FetchType.LAZY)
+    public Set<JMNEDictEntry> names;
 }

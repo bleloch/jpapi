@@ -8,7 +8,7 @@ import lombok.experimental.SuperBuilder;
 @MappedSuperclass
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
-public abstract class WithTypeAndElementBase extends Base {
+public abstract class WithTypeAndElement extends Base {
     @Column(name = "element")
     public String element;
 
