@@ -7,7 +7,6 @@ spring:
     password: password
     driverClassName: org.h2.Driver
   jpa:
-#    database-platform: org.hibernate.dialect.H2Dialect
     show-sql: false
     open-in-view: true
   h2:
@@ -16,15 +15,6 @@ spring:
   jackson:
     serialization:
       FAIL_ON_EMPTY_BEANS: false
-
-#logging:
-#  logback:
-#    rollingpolicy:
-#      max-file-size: 50MB
-#  file:
-#    name: out.log
-#  level:
-#    root: warn
 
 file:
   sources:
@@ -41,9 +31,3 @@ management:
       exposure:
         include:
           - metrics
-
-#logging:
-#  level:
-#    javax: info
-#    sun: info
-#    root: debug

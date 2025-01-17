@@ -103,11 +103,10 @@ public class SearchService {
         return kanjidic2CharacterMapper.toDto(result);
     }
 
-    @Cacheable(value = "word", key = "#id")
-    public JMDictEntryDto getWordById(long id) {
+    @Cacheable(value = "word", key = "#entSeq")
+    public JMDictEntryDto getWordByEntrySequence(long entSeq) {
         var result = jmdictRepository.entryRepository()
-                .findById(id)
-                .orElseThrow(); // throw proper exception
+                .findByEntrySequence(entSeq); // throw proper exception
 
         return jmdictEntryMapper.toDto(result);
     }

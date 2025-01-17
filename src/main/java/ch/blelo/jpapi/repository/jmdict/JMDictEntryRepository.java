@@ -13,4 +13,6 @@ public interface JMDictEntryRepository extends JpaRepository<JMDictEntry, Long> 
     List<JMDictEntry> findByReadingsElementIgnoreCase(String element);
 
     List<JMDictEntry> findBySensesGlossesElementIgnoreCase(String element);
+
+    JMDictEntry findByEntrySequence(long entrySequence);
 }

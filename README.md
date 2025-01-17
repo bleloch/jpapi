@@ -44,6 +44,7 @@
 ## Usage
 The following endpoints may be used to query data:
 - `/search/word/{searchTerm}` queries JMDict data. It is possible to search by kanji representation ("立入禁止"), kana ("たちいりきんし"), or translation ("Off Limits")
+- `/search/word/{entrySequence}` can be used to retrieve data on a given JMDict entry where the entry sequence is known. See JMDict documentation for more information. 
 - `/search/kanji/{searchTerm}` queries Kanjidic2 data
 - `/search/name/{searchTerm}` queries JMnedict data
 

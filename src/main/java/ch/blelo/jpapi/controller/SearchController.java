@@ -58,29 +58,11 @@ public class SearchController {
         return ResponseEntity.ok(results);
     }
 
-    @GetMapping(value = "/word/{id}")
-    public ResponseEntity<JMDictEntryDto> searchWordById(
-            @PathVariable long id
+    @GetMapping(value = "/word/{entrySequence}")
+    public ResponseEntity<JMDictEntryDto> searchJMDictByEntrySequence(
+            @PathVariable long entrySequence
     ) {
-        var result = searchService.getWordById(id);
-
-        return ResponseEntity.ok(result);
-    }
-
-    @GetMapping(value = "/kanji/{id}")
-    public ResponseEntity<Kanjidic2CharacterDto> searchKanjiById(
-            @PathVariable long id
-    ) {
-        var result = searchService.getKanjiById(id);
-
-        return ResponseEntity.ok(result);
-    }
-
-    @GetMapping(value = "/name/{id}")
-    public ResponseEntity<JMNEDictEntryDto> searchNameById(
-            @PathVariable long id
-    ) {
-        var result = searchService.getNameById(id);
+        var result = searchService.getWordByEntrySequence(entrySequence);
 
         return ResponseEntity.ok(result);
     }
