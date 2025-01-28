@@ -1,6 +1,8 @@
 # jpapi
 
-`jpapi` exposes a REST API for querying various sources of Japanese language data built with Java & Spring Boot.
+`jpapi` exposes a REST API for querying various sources of Japanese language data.
+
+Built with Java & Spring Boot.
 
 ## Building & running
 
